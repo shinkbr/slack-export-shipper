@@ -90,7 +90,6 @@ module SlackExportShipper
     def bulk_index(docs)
       bulk_body = []
       total = docs.values.inject(0){|m, i| m + i.size}
-      puts "#{total} documents found"
       pb = ProgressBar.create(total: total, format: "|%B| %c/%C")
 
       docs.each do |index, messages|
