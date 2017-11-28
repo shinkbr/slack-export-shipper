@@ -66,7 +66,7 @@ module SlackExportShipper
       return channel
     end
 
-    # regroup by local date for elasticsearch's indexing reason
+    # regroup by local date for elasticsearch's indexing
     def aggregate(channel_messages, channel_name: '')
       docs = {}
 
@@ -76,8 +76,11 @@ module SlackExportShipper
         index = datetime.strftime("#{@index_prefix}-%Y.%m.%d")
 
         i['@timestamp'] = datetime.to_s
+
+        # I am adding these two here in order to avoid using scripted fields in Kibana
         i['hour_of_day'] = datetime.hour
         i['day_of_week'] = datetime.wday
+
         i['user_name'] = userid2name(i['user']) unless i['user'].nil?
         i['channel_name'] = channel_name unless channel_name.empty?
         i['workspace'] = @workspace unless @workspace.empty?
