@@ -5,13 +5,16 @@ require 'date'
 require 'elasticsearch'
 require 'fileutils'
 require 'json'
+require 'logger'
 require 'pp'
-require 'ruby-progressbar'
 require 'pry'
+require 'ruby-progressbar'
 
 module SlackExportShipper
   class Shipper
     def initialize(logdir, index_prefix: 'slack', workspace: '')
+      @logger = Logger.new(STDOUT)
+
       @logdir = logdir
       @es = Elasticsearch::Client.new(request_timeout: 180)
       @index_prefix = 'slack'
@@ -26,7 +29,8 @@ module SlackExportShipper
     end
 
     def ship_channel(channel)
-      puts "shipping \"#{channel}\" ..."
+      @logger.info("shipping \"#{channel}\" ... ")
+
       channel_messages = load_channel(channel)
       docs = aggregate(channel_messages, channel_name: channel)
       bulk_index(docs)
