@@ -1,13 +1,12 @@
 require_relative 'lib/slack_export_shipper'
 
-desc 'Ship logs of 1 channel to elasticsearch'
-task :ship_channel do
-  shipper = SlackExportShipper::Shipper.new(ENV['logdir'])
-  shipper.ship_channel(ENV['channel'])
-end
-
-desc 'Ship logs of all channels to elasticsearch'
+desc '[bundle exec] rake ship logdir=/path/to/unzipped/logs [channel=general]'
 task :ship do
   shipper = SlackExportShipper::Shipper.new(ENV['logdir'])
-  shipper.ship
+
+  unless ENV['channel'].nil?
+    shipper.ship_channel(ENV['channel'])
+  else
+    shipper.ship
+  end
 end

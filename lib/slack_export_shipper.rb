@@ -29,7 +29,7 @@ module SlackExportShipper
     end
 
     def ship_channel(channel)
-      @logger.info("shipping \"#{channel}\" ... ")
+      @logger.info("shipping \"#{channel}\"")
 
       channel_messages = load_channel(channel)
       docs = aggregate(channel_messages, channel_name: channel)

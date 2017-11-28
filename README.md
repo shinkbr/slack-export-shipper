@@ -21,11 +21,11 @@ This can take quite a long time depending on the size of your log.
 Ship all channels:
 
 ```
-$ bundle exec rake ship logdir=/path/you/unzipped
+$ bundle exec rake ship logdir=/path/to/unzipped/logs
 ```
 
 Ship a specific channel:
 
 ```
-$ bundle exec rake ship_channel logdir=/path/you/unzipped channel=random
+$ bundle exec rake ship logdir=/path/to/unzipped/logs channel=general
 ```
