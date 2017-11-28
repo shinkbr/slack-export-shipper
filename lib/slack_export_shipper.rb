@@ -76,8 +76,8 @@ module SlackExportShipper
         index = datetime.strftime("#{@index_prefix}-%Y.%m.%d")
 
         i['@timestamp'] = datetime.to_s
-        i['username'] = userid2name(i['user']) unless i['user'].nil?
-        i['channelname'] = channel_name unless channel_name.empty?
+        i['user_name'] = userid2name(i['user']) unless i['user'].nil?
+        i['channel_name'] = channel_name unless channel_name.empty?
         i['workspace'] = @workspace unless @workspace.empty?
 
         docs[index] ||= []
