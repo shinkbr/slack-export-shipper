@@ -12,11 +12,11 @@ require 'ruby-progressbar'
 
 module SlackExportShipper
   class Shipper
-    def initialize(logdir, index_prefix: 'slack', workspace: '')
+    def initialize(logdir, host, index_prefix: 'slack', workspace: '')
       @logger = Logger.new(STDOUT)
 
       @logdir = logdir
-      @es = Elasticsearch::Client.new(request_timeout: 180)
+      @es = Elasticsearch::Client.new(host: host, request_timeout: 180)
       @index_prefix = 'slack'
       @workspace = workspace
       @batch_size = 500
