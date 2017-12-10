@@ -113,7 +113,7 @@ module SlackExportShipper
         end
 
         if bulk_body.size > @batch_size
-          @es.bulk(body: bulk_body) if bulk_body.size > @batch_size
+          @es.bulk(body: bulk_body)
           pb.progress += bulk_body.size
           bulk_body = []
         end
